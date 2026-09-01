@@ -1,13 +1,12 @@
 dw_commodities:
-  target: prod
   outputs:
-    prod:
+    dev:
+      dbname: databasesales_8qy0
+      host: dpg-da70i0ifngtc73bthrig-a.ohio-postgres.render.com
+      pass: 8kLZo5gFfnYP0yf8t9VFBKc8oiVmHK9D
+      port: 5432
+      schema: public
+      threads: 1
       type: postgres
-      dbname: postgres
-      host: "{{ env_var('DB_HOST_PROD') }}"
-      user: "{{ env_var('DB_USER_PROD') }}"
-      password: "{{ env_var('DB_PASSWORD_PROD') }}"
-      port: "{{ env_var('DB_PORT_PROD') | int }}"
-      schema: "{{ env_var('DB_SCHEMA_PROD') }}"
-      threads: "{{ env_var('DB_THREADS_PROD') | int }}"
-      keepalives_idle: 0
+      user: postgres123
+  target: dev

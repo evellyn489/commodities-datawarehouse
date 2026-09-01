@@ -18,10 +18,10 @@ DB_SCHEMA = os.getenv('DB_SCHEMA_PROD')
 DATABASE_URL = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 engine = create_engine(DATABASE_URL)
 
-def buscar_dados_commodities(simbolo, periodo='5y', intervalo='1d'):
+def buscar_dados_commodities(simbolo, periodo='5d', intervalo='1d'):
     ticker = yf.Ticker(simbolo)
     dados = ticker.history(period=periodo, interval=intervalo)[['Close']]
-    dados['Símbolo'] = simbolo
+    dados['simbolo'] = simbolo
     return dados
 
 def buscar_todos_dados_commodities(commodities):
@@ -29,11 +29,12 @@ def buscar_todos_dados_commodities(commodities):
     for simbolo in commodities:
         dados = buscar_dados_commodities(simbolo)
         todos_dados.append(dados)
-    return pd.concat(todos_dados, ignore_index=True)
+    return pd.concat(todos_dados)
 
 def salvar_no_postgres(df, schema='public'):
     df.to_sql('commodities', engine, if_exists='replace', index=True, index_label='Date', schema=schema)
+    print(f'Dados salvos no PostgreSQL na tabela {schema}.commodities')
 
 if __name__ == '__main__':
     dados_concatenados = buscar_todos_dados_commodities(commodities)
-    salvar_no_postgres(dados_concatenados)
+    salvar_no_postgres(dados_concatenados, schema='public')

@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: databasesales_8qy0
+    schema: public
+    tables:
+      - name: commodities
+        description: "Tabela que contém dados históricos de commodities."
+        columns:
+          - name: Date
+            description: "Data da observação."
+          - name: Close
+            description: "Preço de fechamento da commodity."
+      - name: Simbolo
+        description: "Simbolo da commodity."
