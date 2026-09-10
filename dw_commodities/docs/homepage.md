@@ -14,20 +14,20 @@ Os seeds são dados estáticos que são carregados no Data Warehouse a partir de
 
 ### 2. Models
 
-Os models definem as transformações de dados usando SQL. Eles são divididos em duas camadas principais: staging e datamart.
+Os models definem as transformações de dados usando SQL. Eles são divididos em duas camadas principais: silver e gold.
 
-#### Staging
+#### Silver
 
-A camada de staging é responsável por preparar e limpar os dados antes que eles sejam carregados nas tabelas finais de análise.
+A camada silver é responsável por preparar e limpar os dados antes que eles sejam carregados nas tabelas finais de análise.
 
-- **stg_commodities.sql**: Trata e formata os dados das commodities extraídos da API.
-- **stg_movimentacao_commodities.sql**: Trata e formata os dados de movimentações das commodities.
+- **silver_commodities.sql**: Trata e formata os dados das commodities extraídos da API.
+- **silver_movimentacao_commodities.sql**: Trata e formata os dados de movimentações das commodities.
 
-#### Datamart
+#### Gold
 
-A camada de datamart é onde os dados finais de análise são armazenados. Eles são baseados nos dados preparados pela camada de staging.
+A camada gold é onde os dados finais de análise são armazenados. Eles são baseados nos dados preparados pela camada silver.
 
-- **dm_commodities.sql**: Integra os dados tratados das commodities e das movimentações, criando um modelo de dados final para análise.
+- **gold_commodities.sql**: Integra os dados tratados das commodities e das movimentações, criando um modelo de dados final para análise.
 
 ### 3. Sources
 
@@ -41,9 +41,9 @@ Os snapshots são utilizados para manter um histórico de como os dados mudam ao
 
 ```plaintext
 ├── models
-│   ├── staging
-│   │   ├── stg_commodities.sql
-│   │   └── stg_movimentacao_commodities.sql
+│   ├── silver
+│   │   ├── silver_commodities.sql
+│   │   └── silver_movimentacao_commodities.sql
 │   └── datamart
 │       └── dm_commodities.sql
 ├── seeds
@@ -106,23 +106,19 @@ Os snapshots são utilizados para manter um histórico de como os dados mudam ao
    dbt test
    ```
 
-## Contribuição
-
-Para contribuir com o projeto, por favor, faça um fork do repositório e envie um pull request com suas alterações.
-
 ---
 
 ### Descrição dos Models
 
-#### stg_commodities.sql
+#### silver_commodities.sql
 
-Este model é responsável por tratar e formatar os dados das commodities extraídos da API. Ele faz a limpeza e transformação necessárias para preparar os dados para o datamart.
+Este model é responsável por tratar e formatar os dados das commodities extraídos da API. Ele faz a limpeza e transformação necessárias para preparar os dados para gold.
 
-#### stg_movimentacao_commodities.sql
+#### silver_movimentacao_commodities.sql
 
-Este model é responsável por tratar e formatar os dados de movimentações das commodities. Ele faz a limpeza e transformação necessárias para preparar os dados para o datamart.
+Este model é responsável por tratar e formatar os dados de movimentações das commodities. Ele faz a limpeza e transformação necessárias para preparar os dados para gold.
 
-#### dm_commodities.sql
+#### gold_commodities.sql
 
 Este model integra os dados tratados das commodities e das movimentações, criando um modelo de dados final para análise. Ele calcula métricas e agrega os dados para facilitar a análise no dashboard.
 
