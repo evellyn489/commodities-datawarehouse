@@ -44,8 +44,8 @@ Os snapshots são utilizados para manter um histórico de como os dados mudam ao
 │   ├── silver
 │   │   ├── silver_commodities.sql
 │   │   └── silver_movimentacao_commodities.sql
-│   └── datamart
-│       └── dm_commodities.sql
+│   └── gold
+│       └── gold_commodities.sql
 ├── seeds
 │   └── movimentacao_commodities.csv
 ├── dbt_project.yml
