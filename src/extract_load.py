@@ -18,9 +18,9 @@ DB_SCHEMA = os.getenv('DB_SCHEMA_PROD')
 DATABASE_URL = f'postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 engine = create_engine(DATABASE_URL)
 
-def buscar_dados_commodities(simbolo, periodo='5d', intervalo='1d'):
+def buscar_dados_commodities(simbolo, intervalo='1d'):
     ticker = yf.Ticker(simbolo)
-    dados = ticker.history(period=periodo, interval=intervalo)[['Close']]
+    dados = ticker.history(start='2024-06-01', end='2024-06-30', interval=intervalo)[['Close']]
     dados['simbolo'] = simbolo
     return dados
 
